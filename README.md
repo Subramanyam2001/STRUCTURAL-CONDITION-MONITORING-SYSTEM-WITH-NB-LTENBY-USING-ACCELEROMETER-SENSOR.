@@ -1,2 +1,2 @@
-# STRUCTURAL-CONDITION-MONITORING-SYSTEM-WITH-NB-LTENBY-USING-ACCELEROMETER-SENSOR.
-This project aims to develop a Structural Condition Monitoring System that utilizes accelerometer sensors to detect and monitor vibrations, tilt, or structural displacements in buildings, bridges, or infrastructure. The system transmits the collected sensor data using NB-IoT (Narrowband LTE) technology, enabling real-time remote monitoring 
+# STRUCTURAL-CONDITION-MONITORING-SYSTEM-WITH-NB-LTE BY-USING-ACCELEROMETER-SENSOR.
+This project aims to develop a Structural Condition Monitoring System that utilizes accelerometer sensors to detect and monitor vibrations, tilt, or structural displacements in buildings, bridges, or infrastructure. The system transmits the collected sensor data using NB-IoT (Narrowband LTE) technology, enabling real-time remote monitorin
