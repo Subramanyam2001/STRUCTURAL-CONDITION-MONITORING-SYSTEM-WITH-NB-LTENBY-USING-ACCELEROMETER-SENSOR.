@@ -1,0 +1,62 @@
+% Structural Condition Monitoring System Simulation in MATLAB
+% Simulating accelerometer sensor data and visualizing it
+
+clc; clear; close all;
+
+%% 1. Simulate Accelerometer Sensor Data
+Fs = 1000;                 % Sampling frequency (Hz)
+T = 1/Fs;                  % Sampling period
+L = 1000;                  % Length of signal
+t = (0:L-1)*T;             % Time vector
+
+% Simulated normal vibration signal
+normal_signal = 0.05*sin(2*pi*5*t) + 0.03*sin(2*pi*10*t); 
+
+% Inject anomaly (sudden spike)
+anomaly_signal = normal_signal;
+anomaly_signal(500:510) = anomaly_signal(500:510) + 0.5*rand(1,11);
+
+%% 2. Time-Domain Plot
+figure;
+plot(t, anomaly_signal);
+title('Accelerometer Signal - Time Domain');
+xlabel('Time (s)');
+ylabel('Acceleration (g)');
+grid on;
+
+%% 3. Frequency-Domain Analysis using FFT
+Y = fft(anomaly_signal);
+P2 = abs(Y/L);                % Two-sided spectrum
+P1 = P2(1:L/2+1);             % Single-sided spectrum
+P1(2:end-1) = 2*P1(2:end-1);  % Adjust magnitude
+f = Fs*(0:(L/2))/L;           % Frequency vector
+
+% Plot Frequency Spectrum
+figure;
+plot(f, P1);
+title('Frequency Spectrum of Accelerometer Signal');
+xlabel('Frequency (Hz)');
+ylabel('|P1(f)|');
+grid on;
+
+%% 4. Threshold-based Anomaly Detection
+threshold = 0.15;  % Arbitrary threshold
+anomaly_indices = find(abs(anomaly_signal) > threshold);
+
+% Highlight anomalies
+figure;
+plot(t, anomaly_signal);
+hold on;
+plot(t(anomaly_indices), anomaly_signal(anomaly_indices), 'ro');
+title('Anomaly Detection in Accelerometer Data');
+xlabel('Time (s)');
+ylabel('Acceleration (g)');
+legend('Signal', 'Anomalies');
+grid on;
+
+%% 5. (Optional) Save or Transmit Data
+% Example: save data
+save('sensor_data.mat', 'anomaly_signal', 't');
+
+% Transmission via NB-IoT would occur via microcontroller, not MATLAB
+disp('Sensor data simulated and anomalies detected.');
